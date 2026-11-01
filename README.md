@@ -1,8 +1,8 @@
 # JayPlate
 
-A local, unofficial view of Johns Hopkins dining menus. JayPlate groups food by dining hall and station and puts serving size and key nutrition values beside each item. Menu data comes live from the Hopkins Dining Nutrislice feed.
+A public, unofficial view of Johns Hopkins dining menus. JayPlate groups food by dining hall and station and puts serving size and key nutrition values beside each item. Menu data comes live from the Hopkins Dining Nutrislice feed.
 
-Public site: [jayplate.carvedmyrrh.chatgpt.site](https://jayplate.carvedmyrrh.chatgpt.site)
+Public site: [jayplate.vercel.app](https://jayplate.vercel.app)
 
 The overview favors main dishes from featured stations. Within those stations, items listed on fewer than all service days in Nutrislice's current week appear first. This is a weekly comparison, not a guarantee that an item changes every day. Standard bars are available behind **Show everyday basics**.
 
@@ -29,6 +29,4 @@ Open `http://localhost:3000`. Set `PORT` to use a different port.
 
 ## Deployment
 
-The `worker/` version serves the same frontend and menu API on the public Site. Run `npm run build` to create its deployment artifact in `dist/`. The tracked `.openai/hosting.json` connects that artifact to the Site; `dist/` is generated and is not committed.
-
-The repository also includes Vercel configuration. Vercel serves `public/` as the website and `api/menu.js` as the live menu endpoint. Connect this GitHub repository to a Vercel project with the **Other** framework preset to deploy new pushes automatically.
+Vercel serves `public/` as the website and `api/menu.js` as the live menu endpoint. The Vercel project is connected to this GitHub repository; pushes to `main` deploy automatically.
