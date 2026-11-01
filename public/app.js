@@ -1,4 +1,4 @@
-const state = { data: null, meal: 'lunch', search: '', filter: '', selected: null, showBasics: false, expanded: new Set(), foods: new Map() };
+const state = { data: null, meal: 'lunch', search: '', filter: '', selected: null, showBasics: true, expanded: new Set(), foods: new Map() };
 let requestId = 0;
 const el = id => document.getElementById(id);
 const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character]));
