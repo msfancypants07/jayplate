@@ -76,6 +76,8 @@
   .page-heading p{display:none}
   .page-heading a{display:inline-block;margin-top:7px;font-size:12px}
   .controls{gap:12px;padding:14px;border-radius:16px}
+  .controls .control-group{min-width:0}
+  .controls input[type="date"]{display:block;min-width:0;max-width:100%}
   .control-group label,.meal-group legend{font-size:11px;margin-bottom:5px}
   .control-group input{height:42px}
   .meal-options{gap:3px}
