@@ -66,7 +66,7 @@ function labelHtml(label) {
 
 function foodHtml(food) {
   state.foods.set(String(food.id), food);
-  return `<li class="food-row"><div class="food-main"><div><div class="food-name">${escapeHtml(food.name)}</div><div class="food-serving">${food.serving ? `${escapeHtml(food.serving)} serving` : 'Serving size not listed'}</div></div>${nutritionShort(food)}</div><div class="food-meta"><div class="labels">${rotatesThisWeek(food) ? `<span class="rotation" title="Listed on ${food.daysListed} of ${food.serviceDays} menu days this week">Rotates this week</span>` : ''}${food.labels.slice(0,4).map(labelHtml).join('')}</div><button class="details-button" data-food="${food.id}" type="button">Details ↗</button></div></li>`;
+  return `<li class="food-row"><div class="food-main"><div><div class="food-name">${escapeHtml(food.name)}</div><div class="food-serving">${food.serving ? `${escapeHtml(food.serving)} serving` : 'Serving size not listed'}</div></div>${nutritionShort(food)}</div><div class="food-meta"><div class="labels">${food.labels.slice(0,4).map(labelHtml).join('')}</div><button class="details-button" data-food="${food.id}" type="button">Details ↗</button></div></li>`;
 }
 
 function previewScore(food) {
