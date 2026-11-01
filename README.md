@@ -27,6 +27,8 @@ Open `http://localhost:3000`. Set `PORT` to use a different port.
 - Dietary labels are displayed only when present in the source. They are not a guarantee against allergen cross-contact. Follow Hopkins Dining's official guidance for dietary needs.
 - This project is not affiliated with Johns Hopkins University or Nutrislice.
 
-## Public hosting
+## Deployment
 
 The `worker/` version serves the same frontend and menu API on the public Site. Run `npm run build` to create its deployment artifact in `dist/`. The tracked `.openai/hosting.json` connects that artifact to the Site; `dist/` is generated and is not committed.
+
+The repository also includes Vercel configuration. Vercel serves `public/` as the website and `api/menu.js` as the live menu endpoint. Connect this GitHub repository to a Vercel project with the **Other** framework preset to deploy new pushes automatically.

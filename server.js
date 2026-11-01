@@ -102,7 +102,7 @@ async function sendFile(res, file) {
   }
 }
 
-const server = http.createServer(async (req, res) => {
+async function handleRequest(req, res) {
   const url = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   try {
     if (url.pathname === '/api/menu') {
@@ -151,6 +151,10 @@ const server = http.createServer(async (req, res) => {
   } catch (error) {
     sendJson(res, 502, { error: `Could not load the Nutrislice feed: ${error.message}` });
   }
-});
+}
 
-server.listen(PORT, HOST, () => console.log(`JayPlate is running at http://${HOST}:${PORT}`));
+if (require.main === module) {
+  http.createServer(handleRequest).listen(PORT, HOST, () => console.log(`JayPlate is running at http://${HOST}:${PORT}`));
+}
+
+module.exports = handleRequest;
