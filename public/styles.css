@@ -58,6 +58,9 @@
 @media(max-width:680px){.group-heading{display:block;padding-right:16px}.group-heading>span{display:block;margin:3px 16px 0}}
 
 .swipe-hint,.mobile-hall-nav{display:none}
+.filters .nutrition-toggle{margin-left:auto;background:#eef4f8;border-color:#c9dce8;color:var(--navy)}
+.filters .nutrition-toggle[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:#fff}
+.hide-nutrition .preview-facts,.hide-nutrition .food-serving,.hide-nutrition .food-nutrition,.hide-nutrition dialog .serving,.hide-nutrition .facts,.hide-nutrition .nutrition-unavailable,.hide-nutrition .nutrition-visible-note{display:none!important}
 .retry-inline{border:0;background:transparent;color:var(--blue);text-decoration:underline;font-size:inherit;font-weight:700;padding:3px 6px}
 
 @media(max-width:680px){
@@ -78,6 +81,7 @@
   .meal-options{gap:3px}
   .meal-options button{min-height:38px;font-size:12px}
   .filters{gap:6px}
+  .filters .nutrition-toggle{margin-left:0}
   .filters button:not(.text-button){min-height:36px;font-size:12px}
   .filters p{font-size:11px}
   .section-head{display:block;margin-top:26px;margin-bottom:12px}

@@ -66,7 +66,7 @@ function labelHtml(label) {
 
 function foodHtml(food) {
   state.foods.set(String(food.id), food);
-  return `<li class="food-row"><div class="food-main"><div><div class="food-name">${escapeHtml(food.name)}</div><div class="food-serving">${food.serving ? `${escapeHtml(food.serving)} serving` : 'Serving size not listed'}</div></div>${nutritionShort(food)}</div><div class="food-meta"><div class="labels">${rotatesThisWeek(food) ? `<span class="rotation" title="Listed on ${food.daysListed} of ${food.serviceDays} menu days this week">Rotates this week</span>` : ''}${food.labels.slice(0,4).map(labelHtml).join('')}</div><button class="details-button" data-food="${food.id}" type="button">Full facts ↗</button></div></li>`;
+  return `<li class="food-row"><div class="food-main"><div><div class="food-name">${escapeHtml(food.name)}</div><div class="food-serving">${food.serving ? `${escapeHtml(food.serving)} serving` : 'Serving size not listed'}</div></div>${nutritionShort(food)}</div><div class="food-meta"><div class="labels">${rotatesThisWeek(food) ? `<span class="rotation" title="Listed on ${food.daysListed} of ${food.serviceDays} menu days this week">Rotates this week</span>` : ''}${food.labels.slice(0,4).map(labelHtml).join('')}</div><button class="details-button" data-food="${food.id}" type="button">Details ↗</button></div></li>`;
 }
 
 function previewScore(food) {
@@ -112,14 +112,13 @@ function render() {
   const hall = halls.find(entry => String(entry.id) === String(state.selected));
   if (!hall) return;
   const groups = hallGroups(hall);
-  const count = groups.reduce((sum, group) => sum + group.items.length, 0);
   const title = `${new Date(`${state.data.date}T12:00:00`).toLocaleDateString('en-US', {weekday:'long', month:'long', day:'numeric'})} · ${state.meal.replace('-', ' ')}`;
   const failed = hall.menus.some(menu => menu.error);
   const focus = groups.filter(group => !isBasic(hall, group));
   const basics = groups.filter(group => isBasic(hall, group));
   const showAll = state.showBasics || !!state.search || !!state.filter;
   const visibleGroups = [...focus, ...(showAll ? basics : [])];
-  el('hall-detail').innerHTML = `<div class="detail-shell"><nav class="mobile-hall-nav" aria-label="Choose dining hall">${populated.map(entry => `<button type="button" data-hall="${entry.id}" aria-pressed="${String(entry.id) === String(hall.id)}">${escapeHtml(entry.name)}</button>`).join('')}</nav><div class="detail-heading"><div><h2>${escapeHtml(hall.name)}</h2><p>${escapeHtml(title)} · ${count} listed ${count === 1 ? 'item' : 'items'}${failed ? ' · some menu data unavailable' : ''}</p></div><a class="source-link" href="${escapeHtml(hall.sourceUrl)}" target="_blank" rel="noopener">Official menu ↗</a></div>${groups.length ? `<nav class="station-nav" aria-label="Jump to station">${visibleGroups.map((group, index) => `<button type="button" data-station="${index}">${escapeHtml(group.name)}</button>`).join('')}</nav>${focus.length ? `<div class="group-heading"><h3 class="group-title">${hall.slug === 'levering-cafe' ? 'Drinks' : 'Featured stations'}</h3><span>Items that rotate this week appear first</span></div><div class="station-grid">${focus.map((group, index) => stationHtml(group, index)).join('')}</div>` : ''}${basics.length && !showAll ? `<button type="button" class="basics-toggle" id="show-basics">Show everyday basics <span>${basics.length} stations · salad, cereal, drinks & more ↓</span></button>` : ''}${basics.length && showAll ? `<h3 class="group-title basics-title">Everyday basics</h3><div class="station-grid basics-grid">${basics.map((group, index) => stationHtml(group, focus.length + index)).join('')}</div>${!state.search && !state.filter ? '<button type="button" class="hide-basics" id="hide-basics">Hide everyday basics ↑</button>' : ''}` : ''}` : `<div class="empty-detail">${failed ? 'This menu could not be loaded. Try again soon.' : 'No matching items are listed here. Try another meal, date, or filter.'}</div>`}<p class="notice">Nutrition is shown per listed serving. Items and portions may change. Dietary labels are source supplied and do not guarantee freedom from cross-contact.</p></div>`;
+  el('hall-detail').innerHTML = `<div class="detail-shell"><nav class="mobile-hall-nav" aria-label="Choose dining hall">${populated.map(entry => `<button type="button" data-hall="${entry.id}" aria-pressed="${String(entry.id) === String(hall.id)}">${escapeHtml(entry.name)}</button>`).join('')}</nav><div class="detail-heading"><div><h2>${escapeHtml(hall.name)}</h2><p>${escapeHtml(title)}${failed ? ' · some menu data unavailable' : ''}</p></div><a class="source-link" href="${escapeHtml(hall.sourceUrl)}" target="_blank" rel="noopener">Official menu ↗</a></div>${groups.length ? `<nav class="station-nav" aria-label="Jump to station">${visibleGroups.map((group, index) => `<button type="button" data-station="${index}">${escapeHtml(group.name)}</button>`).join('')}</nav>${focus.length ? `<div class="group-heading"><h3 class="group-title">${hall.slug === 'levering-cafe' ? 'Drinks' : 'Featured stations'}</h3><span>Items that rotate this week appear first</span></div><div class="station-grid">${focus.map((group, index) => stationHtml(group, index)).join('')}</div>` : ''}${basics.length && !showAll ? `<button type="button" class="basics-toggle" id="show-basics">Show everyday basics <span>${basics.length} stations · salad, cereal, drinks & more ↓</span></button>` : ''}${basics.length && showAll ? `<h3 class="group-title basics-title">Everyday basics</h3><div class="station-grid basics-grid">${basics.map((group, index) => stationHtml(group, focus.length + index)).join('')}</div>${!state.search && !state.filter ? '<button type="button" class="hide-basics" id="hide-basics">Hide everyday basics ↑</button>' : ''}` : ''}` : `<div class="empty-detail">${failed ? 'This menu could not be loaded. Try again soon.' : 'No matching items are listed here. Try another meal, date, or filter.'}</div>`}<p class="notice"><span class="nutrition-visible-note">Nutrition is shown per listed serving. </span>Items and portions may change. Dietary labels are source supplied and do not guarantee freedom from cross-contact.</p></div>`;
   const total = halls.reduce((sum, entry) => sum + hallGroups(entry).reduce((n, group) => n + group.items.length, 0), 0);
   el('status').textContent = `${total} options across ${halls.length} locations`;
 }
@@ -158,11 +157,21 @@ function openFood(food) {
     ['Sodium', `${integer(food.nutrition.sodium)} mg`], ['Fiber', `${integer(food.nutrition.fiber)} g`],
     ['Sugar', `${integer(food.nutrition.sugar)} g`], ['Sat. fat', `${integer(food.nutrition.saturatedFat)} g`]
   ] : [];
-  el('dialog-body').innerHTML = `<p class="eyebrow">FOOD DETAILS</p><h2 id="dialog-title">${escapeHtml(food.name)}</h2><p class="serving">${food.serving ? `Per ${escapeHtml(food.serving)} serving` : 'Serving size not listed'}</p><div class="labels">${food.labels.map(labelHtml).join('')}</div>${food.nutrition ? `<div class="facts">${facts.map(([name, value]) => `<div class="fact"><strong>${value}</strong><span>${name}</span></div>`).join('')}</div>` : '<p>Nutrition details are not listed for this item.</p>'}${food.description ? `<h3>Description</h3><p class="ingredients">${escapeHtml(food.description)}</p>` : ''}${food.ingredients ? `<h3>Ingredients</h3><p class="ingredients">${escapeHtml(food.ingredients)}</p>` : ''}<p class="dialog-note">Source: Hopkins Dining via Nutrislice. Values and ingredients may change; ask dining staff about allergy concerns.</p>`;
+  el('dialog-body').innerHTML = `<p class="eyebrow">FOOD DETAILS</p><h2 id="dialog-title">${escapeHtml(food.name)}</h2><p class="serving">${food.serving ? `Per ${escapeHtml(food.serving)} serving` : 'Serving size not listed'}</p><div class="labels">${food.labels.map(labelHtml).join('')}</div>${food.nutrition ? `<div class="facts">${facts.map(([name, value]) => `<div class="fact"><strong>${value}</strong><span>${name}</span></div>`).join('')}</div>` : '<p class="nutrition-unavailable">Nutrition details are not listed for this item.</p>'}${food.description ? `<h3>Description</h3><p class="ingredients">${escapeHtml(food.description)}</p>` : ''}${food.ingredients ? `<h3>Ingredients</h3><p class="ingredients">${escapeHtml(food.ingredients)}</p>` : ''}<p class="dialog-note">Source: Hopkins Dining via Nutrislice. Menu details and ingredients may change; ask dining staff about allergy concerns.</p>`;
   el('food-dialog').showModal();
 }
 
 el('date').value = todayInBaltimore();
+let hideNutrition = false;
+try { hideNutrition = localStorage.getItem('jayplate-hide-nutrition') === 'true'; } catch {}
+function setNutritionHidden(hidden) {
+  document.body.classList.toggle('hide-nutrition', hidden);
+  el('nutrition-toggle').setAttribute('aria-pressed', String(hidden));
+  el('nutrition-toggle').textContent = hidden ? 'Show nutrition' : 'Hide nutrition';
+  try { localStorage.setItem('jayplate-hide-nutrition', String(hidden)); } catch {}
+}
+setNutritionHidden(hideNutrition);
+el('nutrition-toggle').addEventListener('click', () => setNutritionHidden(!document.body.classList.contains('hide-nutrition')));
 document.querySelectorAll('[data-meal]').forEach(button => {
   button.setAttribute('aria-pressed', String(button.dataset.meal === state.meal));
   button.addEventListener('click', () => {

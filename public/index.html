@@ -14,13 +14,13 @@
     <div class="topline"><div class="brand"><span class="brand-mark" aria-hidden="true">J</span><span>JayPlate</span></div><span class="unofficial">Independent Hopkins dining menus</span></div>
   </header>
   <main>
-    <div class="page-heading"><div><h1>Daily menus</h1><p>See what's on today, with the stations that matter first.</p></div><a href="https://hopkinsdining.nutrislice.com/menu" target="_blank" rel="noopener">Official menus ↗</a></div>
+    <div class="page-heading"><h1>Daily menus</h1><a href="https://hopkinsdining.nutrislice.com/menu" target="_blank" rel="noopener">Official menus ↗</a></div>
     <section class="controls" aria-label="Menu controls">
       <div class="control-group"><label for="date">Date</label><input id="date" type="date"></div>
       <fieldset class="meal-group"><legend>Meal</legend><div class="meal-options" id="meal-options"><button type="button" data-meal="breakfast">Breakfast</button><button type="button" data-meal="lunch">Lunch</button><button type="button" data-meal="dinner">Dinner</button><button type="button" data-meal="late-night">Late night</button></div></fieldset>
       <div class="control-group search-group"><label for="search">Find a food</label><input id="search" type="search" placeholder="Try chicken, tofu, pizza…" autocomplete="off"></div>
     </section>
-    <section class="filters" aria-label="Dietary label filters"><span>Show only:</span><button type="button" data-filter="vegan">Vegan</button><button type="button" data-filter="vegetarian">Vegetarian</button><button type="button" data-filter="halal">Halal</button><button type="button" id="clear-filters" class="text-button" hidden>Clear filters</button><p>Labels come from Nutrislice. Check official details for allergies.</p></section>
+    <section class="filters" aria-label="Menu display options"><span>Show only:</span><button type="button" data-filter="vegan">Vegan</button><button type="button" data-filter="vegetarian">Vegetarian</button><button type="button" data-filter="halal">Halal</button><button type="button" id="clear-filters" class="text-button" hidden>Clear filters</button><button type="button" id="nutrition-toggle" class="nutrition-toggle" aria-pressed="false">Hide nutrition</button><p>Labels come from Nutrislice. Check official details for allergies.</p></section>
     <div class="section-head"><div><h2>Dining halls at a glance</h2><p class="swipe-hint">Swipe to compare halls →</p></div><p id="status" role="status">Loading today's menus…</p></div>
     <section id="hall-grid" class="hall-grid" aria-label="Dining halls"><div class="launch-note"><h3>Start JayPlate to load menus</h3><p>Run <code>npm start</code> in the JayPlate folder, then open <code>http://127.0.0.1:3000</code>.</p></div></section>
     <div id="hall-empty" class="hall-empty" hidden></div>
