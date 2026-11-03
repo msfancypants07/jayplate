@@ -61,6 +61,8 @@
 .filters .nutrition-toggle[aria-pressed=true]{background:var(--navy);border-color:var(--navy);color:#fff}
 .hide-nutrition .preview-facts,.hide-nutrition .food-serving,.hide-nutrition .food-nutrition,.hide-nutrition dialog .serving,.hide-nutrition .facts,.hide-nutrition .nutrition-unavailable,.hide-nutrition .nutrition-visible-note{display:none!important}
 .retry-inline{border:0;background:transparent;color:var(--blue);text-decoration:underline;font-size:inherit;font-weight:700;padding:3px 6px}
+.feedback-link{display:inline-flex;align-items:center;justify-content:center;flex:none;min-height:40px;padding:8px 12px;border:1px solid #c9dce8;border-radius:10px;background:#e9f3fa;color:var(--navy);font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap}
+.feedback-link:hover{background:#d8ebf7}
 
 @media(max-width:680px){
   body{font-size:15px}
@@ -135,6 +137,7 @@
   .basics-toggle{width:calc(100% - 24px);margin:0 12px 18px}
   .notice{margin:0 14px 18px;font-size:11px}
   dialog{max-height:calc(100dvh - 28px);overflow:auto;padding:22px}
+  .feedback-link{margin-top:8px}
 }
 
 @media(max-width:360px){
